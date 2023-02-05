@@ -14,7 +14,7 @@ Iotis is a 2 layer abstract IoT (Internet of Things) platform, designed and impl
 ### Starting up!
 The first step is to create a `RequestEngine` object.
 
-You'll need the `username` and your public key file. Iotis uses it's own authentication protocol which is included in the library and you don't need to implement it.
+You'll need the `username` and your public key file. Iotis uses it's own authentication protocol which is included in the library and you don't need to implement it. Just remember to install `pycryptodome` library using `pip`.
 
 ```python
 import iotis_app.python as iot
