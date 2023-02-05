@@ -62,7 +62,7 @@ else:
 **Note: You will get a #21 error if the node is not connected when calling this request.**
 
 ### Pushing a message to node
-Sometimes, you want the node to get your message as soon as it's connected, but it's not necessary to send it right now. In such scenario, you can use `push` mechanism. 
+Sometimes, you want the node to get your message as soon as it's connected, but it's not necessary to get it right now. In such scenario, you can use `push` mechanism. 
 
 ```python
 resp = req_engine.push_message_to_node(node_uid, "This is a test message!")
