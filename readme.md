@@ -51,6 +51,8 @@ else:
 ### Sending a message to node
 When you want the message to node **right now**, you can `send` it.
 
+The message can be a standard `string`. A `JSON` is also a `string`, but you need to parse or convert it at the node layer.
+
 ```python
 resp = req_engine.send_message_to_node(node_uid, "This is a test message!")
 
