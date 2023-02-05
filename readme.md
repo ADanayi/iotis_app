@@ -16,8 +16,6 @@ The first step is to create a `RequestEngine` object.
 
 You'll need the `username` and your public key file. Iotis uses it's own authentication protocol which is included in the library and you don't need to implement it.
 
-You only need to change the `iotis_server_url` with your own dedicated server's url in enterprise solutions. (Please check our plans in [liotis's website](https://liotis.ir)). 
-
 ```python
 import iotis_app.python as iot
 
@@ -27,6 +25,9 @@ public_key_path = "./key.pub" # Replace "./key.pub" with the address of your sec
 
 req_engine = iot.RequestEngine(username, public_key_path, iotis_server_url)
 ```
+
+You only need to change the `iotis_server_url` with your own dedicated server's url in enterprise solutions. (Please check our plans in [iotis's website](https://iotis.ir)). 
+
 
 ### Checking node's connection status
 You can check the connectedness of a node every time you need.
