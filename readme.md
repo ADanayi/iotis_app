@@ -21,7 +21,7 @@ import iotis_app.python as iot
 
 iotis_server_url = "https://my.iotis.ir/v1/gate" # This is the address of our test server.
 username = "abolfazl" # Replace abolfazl with your application-username 
-public_key_path = "./key.pub" # Replace "./key.pub" with the address of your security key file's address
+public_key_path = "./pub.key" # Replace "./key.pub" with the address of your security key file's address
 
 req_engine = iot.RequestEngine(username, public_key_path, iotis_server_url)
 ```
