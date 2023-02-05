@@ -19,7 +19,7 @@ You'll need the `username` and your public key file. Iotis uses it's own authent
 You only need to change the `iotis_server_url` with your own dedicated server's url in enterprise solutions. (Please check our plans in [liotis's website](https://liotis.ir)). 
 
 ```python
-import iotis.python as iot
+import iotis_app.python as iot
 
 iotis_server_url = "https://my.iotis.ir/v1/gate" # This is the address of our test server.
 username = "abolfazl" # Replace abolfazl with your application-username 
