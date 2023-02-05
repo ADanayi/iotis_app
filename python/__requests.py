@@ -4,7 +4,7 @@ from .__tools import pingPongJson
 from .__classes import Response
 from .__UTAEndpoint import UTAEndpoint
 
-class Requests:
+class RequestEngine:
     def __init__(self, username: str, public_key_file_path: str, iotis_gate_url: str):
         self.__public_key_file_path = public_key_file_path
         self.__username = username
@@ -21,8 +21,17 @@ class Requests:
             "signature": signature,
             "args": args
         }
-        print(req)
-        jresp = pingPongJson(self.__iotis_gate_url, req)
+        try:
+            jresp = pingPongJson(self.__iotis_gate_url, req)
+        except KeyboardInterrupt:
+            exit(1)
+        except:
+            jresp = {
+                'status': 'error',
+                'result': {
+                    'error': '#-1'
+                }
+            }
         return Response(jresp)
 
     def send_message_to_node(self, uid: str, message: str) -> Response:
