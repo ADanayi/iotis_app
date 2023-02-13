@@ -164,3 +164,69 @@ def irantime_str(dt: datetime.datetime, include_date: bool = True, include_time:
         return str(val).zfill(2)
     s += f'{zf(idt.hour)}:{zf(idt.minute)}:{zf(idt.second)}'
     return s
+
+# In the name of Allah
+
+import os
+import typing as T
+
+
+class FileToCPPHeaderConverter:
+
+    def __init__(self, input_file_path: str, h_path: str, variable_name: str, variable_prefix: str = "const uint8_t", namespace: T.Union[str, None] = None, define_length: bool = True, append_end_of_file: bool = True):
+        self.__B = []
+        with open(input_file_path, 'rb') as input_file:
+            byte = input_file.read(1)
+            while byte != b"":
+                self.__B.append(byte)
+                byte = input_file.read(1)
+        self.__variable_prefix = variable_prefix
+        self.__variable_name = variable_name
+        self.__h_path = h_path
+        self.__namespace = namespace
+        self.__define_length = define_length
+        self.__append_end_of_file = append_end_of_file
+
+    def perform(self):
+        L = []
+        # for i in range(len(self.__input_file)):
+        for b in self.__B:
+            # char_int = self.__input_file[i]
+            # char = chr(char_int)
+            # b = char.encode('utf-8')
+            h = b.hex()
+            L.append('0x' + h)
+        if self.__append_end_of_file and b.hex() != '00':
+            L.append('0x00')
+        initializer = '{' + ', '.join(L) + '}'
+        output_header = '//In the name of Allah\n\n'
+        if self.__define_length:
+            output_header += '#define {}_len {}\n\n'.format(
+                self.__variable_name, len(L))
+            length_variable = ''
+        else:
+            length_variable = 'const unsigned long int {}_len = {};'.format(
+                self.__variable_name, len(L))
+        output_variable = self.__variable_prefix + ' ' + \
+            self.__variable_name + '[] = ' + initializer + ';'
+        if self.__namespace != None:
+            output = output_header + \
+                "namespace {}".format(self.__namespace) + \
+                '{\n\t' + output_variable
+            if not self.__define_length:
+                output += "\n\t"
+                output += length_variable
+            output += '\n};'
+        else:
+            if self.__define_length:
+                output = output_header + output_variable
+            else:
+                output = output_header + length_variable + output_variable
+        with open(self.__h_path, 'w') as outfile:
+            outfile.write(output)
+
+    @staticmethod
+    def convert(input_file_path: str, h_path: str, variable_name: str, variable_prefix: str = "const uint8_t", namespace: T.Union[None, str] = None, define_length: bool = True, append_end_of_file: bool = True):
+        C = FileToCPPHeaderConverter(
+            input_file_path, h_path, variable_name, variable_prefix, namespace, define_length, append_end_of_file)
+        C.perform()
