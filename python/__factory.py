@@ -44,7 +44,7 @@ class FactoryEngine:
         if not r:
             return r
         if save_to_path is not None:
-            self.__save(path, **r.result)
+            self.__save(save_to_path, **r.result)
         return r
 
     def save_device(self, uid: str, path: str) -> bool:
