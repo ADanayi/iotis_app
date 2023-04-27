@@ -9,6 +9,8 @@ import os
 class _DeviceModuleEngineBase:
     def __init__(self, iotis_gate_url: str):
         self.__iotis_gate_url = iotis_gate_url
+        self.__auser = None
+        self.__node_uid = None
         self.__mode = None
     
     def auth_by_device(self, node_uid: str, node_key_file_path: str):
