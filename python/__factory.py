@@ -36,10 +36,11 @@ class FactoryEngine:
             }
         return Response(jresp)
 
-    def generate_device(self, device_model: str, owners: list = [], save_to_path: str = None) -> Response:
+    def generate_device(self, device_model: str, owners: list = [], modules: list = [], save_to_path: str = None) -> Response:
         r = self._pingPong('generate_device', {
             'device_model': device_model,
-            'owners': owners
+            'owners': owners,
+            'modules': modules
         })
         if not r:
             return r

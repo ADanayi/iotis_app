@@ -4,6 +4,8 @@ from .__tools import pingPongJson
 from .__classes import Response
 from .__UTAEndpoint import UTAEndpoint
 
+import json
+
 class CoreEngine:
     def __init__(self, username: str, public_key_file_path: str, iotis_gate_url: str):
         self.__public_key_file_path = public_key_file_path
@@ -34,16 +36,21 @@ class CoreEngine:
             }
         return Response(jresp)
 
+    def __prepare_message(self, message) -> str:
+        if type(message) == dict:
+            return json.dumps(message)
+        return message
+
     def send_message_to_node(self, uid: str, message: str) -> Response:
         return self._pingPong('send_message', {
             'uid': uid,
-            'message': message,
+            'message': self.__prepare_message(message),
         })
 
     def push_message_to_node(self, uid: str, message: str) -> Response:
         return self._pingPong('push_message', {
             'uid': uid,
-            'message': message
+            'message': self.__prepare_message(message)
         })
 
     def node_is_connected(self, uid: str) -> Response:
