@@ -24,21 +24,22 @@ class GateBase:
             raise Exception('Bad url %s' % (gate_url))
         if not all([result.scheme, result.netloc]):
             raise Exception('Bad url %s' % (gate_url))
-        self.__identifier_kw = identifier_kw
-        self.__identifier_value = identifier_value
+        self.__identifiers = {}
+        self.__identifiers[identifier_kw] = identifier_value
         self.__gate_url = gate_url
         with open(pkey_file_path, 'r') as file:
             pkey = file.read()
         self.__uta = UTAEndpoint(identifier_value, pkey)
 
-    def _pingPong(self, ftype: str, args: dict, TargetClass=Response) -> Response:
+    def _pingPong(self, ftype: str, args: dict, TargetClass=Response, extra_identifiers={}) -> Response:
         signature = self.__uta.sign()
         req = {
             "type": ftype,
             "signature": signature,
-            "args": args
+            "args": args,
+            **self.__identifiers,
+            **extra_identifiers
         }
-        req[self.__identifier_kw] = self.__identifier_value
         try:
             jresp = pingPongJson(self.__gate_url, req)
         except KeyboardInterrupt:

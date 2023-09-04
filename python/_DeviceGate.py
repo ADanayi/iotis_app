@@ -15,6 +15,7 @@ class DeviceGate(GateBase):
     def __init__(self, uid: str, pkey_file_path: str, gate_url: str):
         GateBase.__init__(self, 'uid', uid, pkey_file_path, gate_url)
         self.__uid = uid
+        self.__using_owner_creds = False
 
     @property
     def uid(self) -> str:
