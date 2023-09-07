@@ -8,18 +8,12 @@
 # adanayidet@gmail.com
 #
 
-from ..._classes.__classes import Response
+from ..._classes.__classes import Response, CommandResponse
 import os
 from base64 import b64decode
 
 
-class CaptureResponse(Response):
-    @property
-    def command_sent(self):
-        return self.result['sent']
-
-    def __bool__(self):
-        return Response.__bool__(self) and self.command_sent
+CaptureResponse = CommandResponse
 
 
 class CapturedResponse(Response):
@@ -54,10 +48,4 @@ class ImageResponse(Response):
         return Response.__bool__(self) and self.result
 
 
-class SetFlasherResponse(Response):
-    @property
-    def command_sent(self):
-        return self.result['sent']
-
-    def __bool__(self):
-        return Response.__bool__(self) and self.command_sent
+SetFlasherResponse = CommandResponse

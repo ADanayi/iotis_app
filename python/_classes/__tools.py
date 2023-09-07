@@ -49,11 +49,16 @@ def pingPongJson(url: str, req_json: dict, timeout: float = 5, method: str = 'po
         'User-Agent': "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.7) Gecko/2009032803"
     }
     data_json = req_json#json.dumps(req_json)
+    # print('---------------')
+    # print(data_json)
     if method == 'get':
         r = requests.get(url, json=data_json, timeout=timeout, headers=header)
     elif method == 'post':
         r = requests.post(url, json=data_json, timeout=timeout, headers=header)
-    return r.json()
+    ret = r.json()
+    # print(ret)
+    # print('============\n')
+    return ret
 
 def pingPongBGate(url: str, function_name: str, args: dict, timeout: float = 5, method: str = 'post') -> dict:
     fer = {
