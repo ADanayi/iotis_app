@@ -9,6 +9,7 @@
 #
 
 from ..Modules.__ModuleBase import ModuleBase
+from ..Modules import DevTools 
 import typing as T
 
 
@@ -20,6 +21,8 @@ class ProductBase:
             kwargs['server_url'] = server_url
             mod = ModuleCls(**kwargs)
             self.__mods[mod.name] = mod
+        if not 'devtools' in self.__mods:
+            self.__mods['devtools'] = DevTools(server_url)
         
     def __getitem__(self, kw: str):
         return self.__mods[kw]
@@ -35,3 +38,7 @@ class ProductBase:
     @property
     def product_name(self) -> str:
         return self.__product_name
+
+    @property
+    def devtools(self) -> DevTools:
+        return self['devtools']

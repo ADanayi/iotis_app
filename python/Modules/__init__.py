@@ -10,3 +10,4 @@
 
 from .__Camera import Camera
 from .__IOController import IOController
+from .__DevTools import DevTools
