@@ -83,12 +83,14 @@ const char *const uid = "{}";
     
     def ack_code_upload(self, uid: str, code_version: str, app_code_version: str) -> Response:
         return self._pingPong('ack_code_upload', {
+            'uid': uid,
             'code_version': code_version,
             'app_code_version': app_code_version
         })
 
     def ack_code_reupload(self, uid: str, code_version: str, app_code_version: str) -> Response:
         return self._pingPong('ack_code_reupload', {
+            'uid': uid,
             'code_version': code_version,
             'app_code_version': app_code_version
         })
