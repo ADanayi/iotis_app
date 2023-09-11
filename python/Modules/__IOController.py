@@ -37,3 +37,14 @@ class IOController(ModuleBase):
             'pin': int(pin),
             'value': bool(value)
         }, CommandResponse, uid)
+
+    def timeout_output_pin(self, pin: int, value: bool, timeout_ms: int, uid: Optional[str] = None) -> CommandResponse:
+        """This command writes the 'value' to pin, but this value will be toggled after ms seconds.
+Please note that if the device gets restarted due to voltage fluctuations or other causes, the """
+        if pin < 0 or pin >= self.__osize:
+            raise Exception('Bad pin number value')
+        return self._pingPong('timeout_output_pin', {
+            'pin': int(pin),
+            'value': bool(value),
+            'timeout_ms': int(timeout_ms)
+        }, CommandResponse, uid)

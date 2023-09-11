@@ -39,7 +39,10 @@ class ImageResponse(Response):
     def save(self, parent_folder: str) -> str:
         """Saves the file and returns the filename"""
         os.makedirs(parent_folder, exist_ok=True)
-        filename = f"{self.timestamp}.jpeg"
+        ts = self.timestamp
+        for ch in ('/ ,:*?|'):
+            ts = ts.replace(ch, '_')
+        filename = f"{ts}.jpeg"
         with open(os.path.join(parent_folder, filename), 'wb') as file:
             file.write(self.data)
         return filename
