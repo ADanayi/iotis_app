@@ -45,4 +45,4 @@ class CommandResponse(Response):
         return self.result['sent']
 
     def __bool__(self):
-        return Response.__bool__(self) and self.sent
+        return Response.__bool__(self) and self.command_sent
