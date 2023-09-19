@@ -16,7 +16,7 @@ class GenericCam(ProductBase):
     def __init__(self, server_url: str):
         mods = [
             (Camera, {}),
-            (IOController, {'OuputPortSize': 1})
+            (IOController, {'OutputPortSize': 1})
         ]
         ProductBase.__init__(self, 'generic_cam', mods, server_url)
 
