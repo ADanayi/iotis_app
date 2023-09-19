@@ -16,9 +16,9 @@ from .._classes.__classes import Response, CommandResponse
 
 
 class IOController(ModuleBase):
-    def __init__(self, OuputPortSize: int, server_url: str):
+    def __init__(self, OutputPortSize: int, server_url: str):
         ModuleBase.__init__(self, 'iocontroller', server_url)
-        self.__osize = OuputPortSize
+        self.__osize = OutputPortSize
 
     def write_output_port(self, port: List[bool], uid: Optional[str] = None) -> CommandResponse:
         pass
@@ -40,7 +40,7 @@ class IOController(ModuleBase):
 
     def timeout_output_pin(self, pin: int, value: bool, timeout_ms: int, uid: Optional[str] = None) -> CommandResponse:
         """This command writes the 'value' to pin, but this value will be toggled after ms seconds.
-Please note that if the device gets restarted due to voltage fluctuations or other causes, the """
+Please note that if the device gets restarted due to voltage fluctuations or other causes, the pin value might be """
         if pin < 0 or pin >= self.__osize:
             raise Exception('Bad pin number value')
         return self._pingPong('timeout_output_pin', {

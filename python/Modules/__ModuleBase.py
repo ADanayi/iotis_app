@@ -48,3 +48,8 @@ class ModuleBase:
     @property
     def name(self) -> str:
         return self.__name
+
+    @property
+    def creds_mode(self) -> Optional[str]:
+        """Returns either None, 'device' or 'owner' based on the use_x_creds function called!"""
+        return self.__use_mode

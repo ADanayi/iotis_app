@@ -42,3 +42,22 @@ class ProductBase:
     @property
     def devtools(self) -> DevTools:
         return self['devtools']
+
+    @property
+    def connected(self) -> bool:
+        """Checks if the node is connected or not?
+Note: If you're using this class in owner_creds mode, use uid_is_connected(uid) method, instead of this property!"""
+        return self.devtools.is_connected().connected
+    
+    def uid_is_connected(self, uid: str) -> bool:
+        return self.devtools.is_connected(uid=uid).connected
+
+    @property
+    def creds_mode(self) -> T.Optional[str]:
+        """Returns either None, 'device' or 'owner' based on the use_x_creds function called!"""
+        return self.devtools.creds_mode
+    
+    def __bool__(self) -> bool:
+        if self.creds_mode != 'device':
+            raise Exception('Can not use __bool__ method is non-device creds mode')
+        return self.connected

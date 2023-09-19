@@ -17,10 +17,19 @@ class LoadTagResponse(Response):
     @property
     def tag(self) -> dict:
         return self.result['tag']
-    
+
     def __getitem__(self, key):
         # print('__getitem__', key)
         return self.tag[key]
 
     def __contains__(self, key):
         return key in self.tag
+
+
+class IsConnectedResponse(CommandResponse):
+    def __bool__(self) -> bool:
+        return self.connected
+
+    @property
+    def connected(self) -> bool:
+        return self.result['connected']

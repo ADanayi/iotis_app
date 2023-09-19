@@ -11,7 +11,7 @@
 from .__ModuleBase import ModuleBase
 from .._classes.__classes import CommandResponse, Response
 
-from .Responses.__devTools import LoadTagResponse
+from .Responses.__devTools import LoadTagResponse, IsConnectedResponse
 
 from typing import Optional
 import json
@@ -48,3 +48,7 @@ The tag should be less than 10 KBytes (a jsonable dict)"""
         """The tag can be used to save user information on IoTiS server for your own application development
 The tag should be less than 10 KBytes (a jsonable dict)"""
         return self._pingPong('load_tag', {}, LoadTagResponse, uid)
+
+    def is_connected(self, uid: Optional[str] = None) -> IsConnectedResponse:
+        """This function returns if the device is right now connected to the server or not?"""
+        return self._pingPong("is_connected", {}, IsConnectedResponse, uid)

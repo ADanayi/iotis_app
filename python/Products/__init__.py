@@ -9,3 +9,4 @@
 #
 
 from .__GenericCam import GenericCam
+from .__GPIOT import GPIOT
