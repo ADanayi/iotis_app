@@ -12,6 +12,7 @@ from .__ModuleBase import ModuleBase
 from .Responses.__camera import CaptureResponse, CapturedResponse, ImageResponse, SetFlasherResponse
 
 from typing import Optional
+import time
 
 
 class Camera(ModuleBase):
@@ -25,6 +26,17 @@ class Camera(ModuleBase):
 
     def captured(self, uid: Optional[str] = None) -> CapturedResponse:
         return self._pingPong('captured', {}, CapturedResponse, uid)
+
+    def wait_for_capture(self, max_timeout: float = 5, uid: Optional[str] = None) -> CapturedResponse:
+        tic = time.time()
+        while True:
+            resp = self.captured(uid)
+            if resp:
+                break
+            if time.time() - tic >= max_timeout:
+                raise Exception('Timeout')
+            time.sleep(0.5)
+        return resp
 
     def image(self, uid: Optional[str] = None) -> ImageResponse:
         return self._pingPong('image', {}, ImageResponse, uid)
