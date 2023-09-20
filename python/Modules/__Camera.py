@@ -31,7 +31,7 @@ class Camera(ModuleBase):
         tic = time.time()
         while True:
             resp = self.captured(uid)
-            if resp:
+            if resp.captured:
                 break
             if time.time() - tic >= max_timeout:
                 raise Exception('Timeout')

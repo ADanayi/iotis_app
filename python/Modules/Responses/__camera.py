@@ -19,9 +19,12 @@ CaptureResponse = CommandResponse
 class CapturedResponse(Response):
     @property
     def captured(self) -> bool:
-        return self.result['captured']
+        if self.result['captured'] is None:
+            return False
+        else:
+            return self.result['captured']
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return Response.__bool__(self) and self.captured
 
 
